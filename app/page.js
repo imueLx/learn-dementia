@@ -98,10 +98,10 @@ export default function Home() {
             <p className="mt-6 text-lg leading-relaxed">
               Reach out to us at{" "}
               <a
-                href="mailto:contact@dementiatest.com"
+                href="mailto:cogniticare101@gmail.com"
                 className="text-blue-600 underline hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition"
               >
-                contact@dementiatest.com
+                cogniticare101@gmail.com
               </a>
               . We're here to help with any questions or support you need.
             </p>

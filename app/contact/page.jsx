@@ -17,19 +17,13 @@ const Contact = () => {
           <div className="flex items-center">
             <FaPhone className="text-blue-500 dark:text-blue-400 mr-4" />
             <span className="text-xl text-gray-900 dark:text-gray-100">
-              +63 123 456 7890
+              +63 921 999 8764
             </span>
           </div>
           <div className="flex items-center">
             <FaEnvelope className="text-blue-500 dark:text-blue-400 mr-4" />
             <span className="text-xl text-gray-900 dark:text-gray-100">
-              support@dementiacare.com
-            </span>
-          </div>
-          <div className="flex items-center">
-            <FaMapMarkerAlt className="text-blue-500 dark:text-blue-400 mr-4" />
-            <span className="text-xl text-gray-900 dark:text-gray-100">
-              456 Wellness Avenue, Health City
+              cogniticare101@gmail.com
             </span>
           </div>
         </div>
