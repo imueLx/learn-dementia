@@ -19,11 +19,11 @@ const Footer = () => {
             Home
           </Link>
           <Link
-            href="/takethetest"
+            href="/assessment"
             className="hover:text-gray-400"
-            aria-label="Take the Test"
+            aria-label="Asessment"
           >
-            Take the Test
+            Asessment
           </Link>
           <Link
             href="/learn"
