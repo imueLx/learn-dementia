@@ -37,7 +37,7 @@ const Navbar = () => {
         {/* Logo */}
         <h1 className="text-2xl font-bold">
           <Link href="/" aria-label="Dementia Test Home">
-            Dementia 101
+            DementiAware
           </Link>
         </h1>
 
