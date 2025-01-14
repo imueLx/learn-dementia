@@ -14,34 +14,53 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Export metadata with Open Graph and Twitter Card
 export const metadata = {
   title: "Dementia Awareness",
   description: "Explore dementia information, symptoms, and screenings.",
-  author: "uel",
-  keywords: "dementia, health, awareness, symptoms, screenings",
-  charset: "UTF-8",
-  viewport: "width=device-width, initial-scale=1.0",
+  authors: [{ name: "uel" }],
+  keywords: ["dementia", "health", "awareness", "symptoms", "screenings"],
+  viewport: {
+    width: "device-width",
+    initialScale: 1.0,
+  },
   themeColor: "#ffffff",
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Dementia Awareness",
+    description: "Explore dementia information, symptoms, and screenings.",
+    url: "https://learn-dementia.vercel.app/",
+    siteName: "Dementia Awareness",
+    images: [
+      {
+        url: "/sample_pictures/dementia-awareness.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dementia Awareness Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dementia Awareness",
+    description: "Explore dementia information, symptoms, and screenings.",
+    images: [
+      "https://learn-dementia.vercel.app//sample_pictures/dementia-awareness.jpg",
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full">
-      <head>
-        <meta charSet={metadata.charset} />
-        <meta name="viewport" content={metadata.viewport} />
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="author" content={metadata.author} />
-        <meta name="keywords" content={metadata.keywords} />
-        <meta name="theme-color" content={metadata.themeColor} />
-        <meta name="robots" content={metadata.robots} />
-        <link rel="icon" href="/favicon.ico" />
-        {/* Import fonts using the font loader */}
-        <style>{geistSans.styles}</style>
-        <style>{geistMono.styles}</style>
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
