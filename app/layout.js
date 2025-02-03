@@ -20,11 +20,6 @@ export const metadata = {
   description: "Explore dementia information, symptoms, and screenings.",
   authors: [{ name: "uel" }],
   keywords: ["dementia", "health", "awareness", "symptoms", "screenings"],
-  viewport: {
-    width: "device-width",
-    initialScale: 1.0,
-  },
-  themeColor: "#ffffff",
   robots: {
     index: true,
     follow: true,

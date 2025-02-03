@@ -1,10 +1,4 @@
-import {
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaInfoCircle,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaInfoCircle } from "react-icons/fa";
 
 const Contact = () => {
   return (
