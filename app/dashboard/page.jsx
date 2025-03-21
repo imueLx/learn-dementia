@@ -19,6 +19,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  LineController,
 } from "chart.js";
 
 // Register necessary components
@@ -30,7 +31,8 @@ ChartJS.register(
   LineElement, // Add this
   Title,
   Tooltip,
-  Legend
+  Legend,
+  LineController
 );
 import questions from "@/data/questions";
 
@@ -233,7 +235,6 @@ export default function AdminDashboard() {
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this assessment?")) return;
 
-    console.log("handleDElete id: ", id);
     try {
       const response = await fetch(`/api/results/${id}`, {
         method: "DELETE",
