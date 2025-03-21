@@ -245,6 +245,11 @@ export default function AdminDashboard() {
 
   // Add this inside your component
   const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this assessment?"
+    );
+    if (!confirmed) return;
+
     try {
       const response = await fetch(`/api/results/${id}`, { method: "DELETE" });
 
