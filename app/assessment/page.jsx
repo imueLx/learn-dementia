@@ -1,24 +1,29 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import {
-  FaInfoCircle,
   FaQuestionCircle,
   FaClipboardList,
   FaUserCheck,
   FaStethoscope,
+  FaInfoCircle,
 } from "react-icons/fa";
-
+import ConsentModal from "../components/ConsentModal";
 const Assessment = () => {
   const router = useRouter();
+  const [showConsentModal, setShowConsentModal] = useState(false);
 
   const handleProceed = () => {
-    router.push("/profile"); // Navigate to the profile page
+    setShowConsentModal(true);
+  };
+
+  const handleConsentAccepted = () => {
+    setShowConsentModal(false);
+    router.push("/profile"); // Navigate to the profile page after consent is given
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-4 relative">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-5xl text-center">
         <h1 className="text-4xl text-gray-700 dark:text-gray-100 font-bold mb-6">
           Dementia Assessment Guide for Nurses
@@ -29,7 +34,7 @@ const Assessment = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Mini-Mental State Examination (MMSE){" "}
+          Mini-Mental State Examination (MMSE)
         </a>
         <br />
         <br />
@@ -73,13 +78,20 @@ const Assessment = () => {
             </p>
           </div>
         </div>
+
         <button
           onClick={handleProceed}
-          className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-400 dark:hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg"
         >
           Start Assessment
         </button>
       </div>
+      {showConsentModal && (
+        <ConsentModal
+          onAccept={handleConsentAccepted}
+          onClose={() => setShowConsentModal(false)}
+        />
+      )}
     </div>
   );
 };

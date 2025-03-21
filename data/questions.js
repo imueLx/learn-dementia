@@ -25,11 +25,11 @@ const questions = [
         id: 2,
         maxScore: 5,
         question:
-          "Where are we now? What brgy are we in? What city are we in? What floor are we on?",
+          "Where are we now? What city are we in? What province are we in? What floor/area are we on?",
         guide: {
           title: "Orientation",
           instructions: [
-            "Where are we now? What brgy are we in? What city are we in? What floor are we on?",
+            "Where are we now? What city are we in? What province are we in? What floor/area are we on?",
           ],
           scoring: [
             "5 points: Correctly answers all questions.",
