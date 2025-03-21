@@ -9,6 +9,7 @@ import {
   FiInfo,
   FiX,
   FiImage,
+  FiLoader,
 } from "react-icons/fi";
 import questions from "../data/questions";
 
@@ -17,6 +18,7 @@ const QuestionsComponent = () => {
   const [answers, setAnswers] = useState({});
   const [showImage, setShowImage] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const currentQuestion = questions[0].questions[currentIndex];
   const router = useRouter();
 
@@ -69,48 +71,38 @@ const QuestionsComponent = () => {
 
   const closeModal = () => setIsModalOpen(false);
 
-  // Update your confirmSubmit function in the QuestionsComponent
+  // Updated confirmSubmit function
   const confirmSubmit = async () => {
+    if (isSubmitting) return; // Prevent double submission
+
+    setIsSubmitting(true);
     const totalScore = calculateTotalScore();
     const profile = JSON.parse(localStorage.getItem("profile"));
-    // Convert answers object to array of answer objects
-    const answersArray = Object.entries(answers).map(([questionId, score]) => ({
-      questionId: Number(questionId),
-      score,
-      timestamp: new Date().toISOString(),
-    }));
-
-    const payload = {
-      profile,
-      answers: answersArray, // Send as array
-      totalScore,
-    };
 
     try {
       const res = await fetch("/api/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profile,
+          answers: Object.entries(answers).map(([questionId, score]) => ({
+            questionId: Number(questionId),
+            score,
+            timestamp: new Date().toISOString(),
+          })),
+          totalScore,
+        }),
       });
 
-      const data = await res.json();
+      if (!res.ok) throw new Error("Submission failed");
 
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to submit assessment");
-      }
-
-      // Clear local storage after successful submission
       localStorage.removeItem("answers");
       localStorage.removeItem("currentIndex");
-
       router.push(`/results?score=${totalScore}`);
     } catch (error) {
-      console.error("Submission error:", error);
-      // Show error to user
-      alert(`Submission failed: ${error.message}`);
+      alert("Submission failed. Please try again.");
     } finally {
+      setIsSubmitting(false);
       closeModal();
     }
   };
@@ -309,17 +301,21 @@ const QuestionsComponent = () => {
 
             <div className="flex justify-end gap-3">
               <button
-                onClick={closeModal}
-                className="px-6 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
                 onClick={confirmSubmit}
-                className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center gap-2"
+                disabled={isSubmitting}
+                className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
               >
-                <FiCheck className="w-5 h-5" />
-                Confirm Submit
+                {isSubmitting ? (
+                  <>
+                    <FiLoader className="w-5 h-5 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <FiCheck className="w-5 h-5" />
+                    Confirm Submit
+                  </>
+                )}
               </button>
             </div>
           </div>

@@ -45,20 +45,32 @@ export default function AdminDashboard() {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/results");
+        if (!response.ok) {
+          setAssessments([]);
+          return;
+        }
+
         const result = await response.json();
-        if (result.success) {
+
+        if (result.success && result.data) {
           setAssessments(result.data);
           analyzeData(result.data);
+        } else {
+          setAssessments([]);
         }
       } catch (error) {
         console.error("Fetch error:", error);
+        setAssessments([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchData();
   }, []);
 
-  const analyzeData = (data) => {
+  const analyzeData = (data = []) => {
+    // Handle undefined data
+    const safeData = data || [];
     // Question-wise analysis
     const questionStats = questions[0].questions.map((q) => ({
       id: q.id,
@@ -70,7 +82,7 @@ export default function AdminDashboard() {
 
     // Dementia risk calculation (MMSE <24 indicates possible dementia)
     const dementiaCases = data.filter((a) => a.totalScore <= 23).length;
-    const dementiaPrevalence = (dementiaCases / data.length) * 100;
+    const dementiaPrevalence = (dementiaCases / (safeData.length || 1)) * 100;
 
     // Cognitive domain analysis
     const domainStats = {
@@ -233,23 +245,18 @@ export default function AdminDashboard() {
 
   // Add this inside your component
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this assessment?")) return;
-
     try {
-      const response = await fetch(`/api/results/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(`/api/results/${id}`, { method: "DELETE" });
 
-      if (!response.ok) throw new Error("Failed to delete assessment");
-
-      // Update local state to remove the deleted item
-      setAssessments((prev) => prev.filter((a) => a._id !== id));
-
-      // Recalculate analytics
-      analyzeData(assessments.filter((a) => a._id !== id));
+      if (response.ok) {
+        setAssessments((prev) => {
+          const updated = prev.filter((a) => a._id !== id);
+          analyzeData(updated); // Re-analyze fresh data
+          return updated;
+        });
+      }
     } catch (error) {
-      console.error("Delete error:", error);
-      alert("Failed to delete assessment. Please try again.");
+      console.error("Delete failed:", error);
     }
   };
 
