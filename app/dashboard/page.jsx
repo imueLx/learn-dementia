@@ -226,23 +226,6 @@ export default function AdminDashboard() {
     return demographics;
   };
 
-  const calculateAverageAge = (assessments) => {
-    const ageMap = {
-      "18-29 years old": 24,
-      "30-39 years old": 35,
-      "40-49 years old": 45,
-      "50-59 years old": 55,
-      "60-69 years old": 65,
-      "70+ years old": 75,
-    };
-
-    const total = assessments.reduce((sum, a) => {
-      return sum + (ageMap[a.profile.age] || 0);
-    }, 0);
-
-    return (total / assessments.length).toFixed(1);
-  };
-
   // Add this inside your component
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
@@ -733,9 +716,6 @@ export default function AdminDashboard() {
                   100
                 ).toFixed(1)}
                 % hold university degrees
-              </li>
-              <li>
-                • Average cohort age: {calculateAverageAge(assessments)} years
               </li>
             </ul>
           </div>
