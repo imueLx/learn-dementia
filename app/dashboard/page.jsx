@@ -634,7 +634,7 @@ export default function AdminDashboard() {
               <p className="text-xs mt-2 text-gray-600 dark:text-gray-400">
                 {Object.entries(
                   analyzeDemographicPatterns(assessments).maritalStatus
-                ).find(([s]) => s === "Single")?.[1] || 0}
+                ).find(([s]) => s === "Single")?.[1] || 0}{" "}
                 participants living without partner support
               </p>
             </div>
@@ -661,7 +661,7 @@ export default function AdminDashboard() {
               <p className="text-xs mt-2 text-gray-600 dark:text-gray-400">
                 {(
                   ((analyzeDemographicPatterns(assessments).educationLevels[
-                    "High school diploma"
+                    "High school graduate"
                   ] || 0) /
                     assessments.length) *
                   100
@@ -727,7 +727,7 @@ export default function AdminDashboard() {
                 •{" "}
                 {(
                   (analyzeDemographicPatterns(assessments).educationLevels[
-                    "Bachelor's degree"
+                    "College graduate"
                   ] /
                     assessments.length) *
                   100

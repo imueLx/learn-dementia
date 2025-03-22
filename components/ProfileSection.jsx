@@ -39,7 +39,7 @@ const ProfileSection = ({ onNext }) => {
           {/* Nickname Input */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-              Nickname
+              Name
             </label>
             <div className="relative">
               <input
@@ -47,7 +47,7 @@ const ProfileSection = ({ onNext }) => {
                 value={profile.nickname}
                 onChange={(e) => handleInputChange("nickname", e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:text-gray-100 placeholder-gray-400 transition-colors"
-                placeholder="Enter preferred nickname"
+                placeholder="Enter name"
               />
               <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
                 <svg
@@ -105,13 +105,11 @@ const ProfileSection = ({ onNext }) => {
               name="education"
               options={[
                 "No formal education",
-                "Elementary school",
+                "Elementary graduate",
                 "High school graduate",
-                "Vocational/technical education",
-                "Some college, no degree",
-                "Associate degree",
-                "Bachelor's degree",
-                "Postgraduate degree (Master's, Doctorate)",
+                "Non-high school graduate",
+                "College graduate",
+                "Non-college graduate",
               ]}
               value={profile.education}
               onChange={handleInputChange}
