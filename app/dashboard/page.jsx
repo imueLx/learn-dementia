@@ -90,7 +90,7 @@ export default function AdminDashboard() {
       Registration: { total: 0, sum: 0, maxPossible: 3 },
       "Attention and Calculation": { total: 0, sum: 0, maxPossible: 5 },
       Recall: { total: 0, sum: 0, maxPossible: 3 },
-      Language: { total: 0, sum: 0, maxPossible: 9 },
+      Language: { total: 0, sum: 0, maxPossible: 8 },
       "Visual Construction": { total: 0, sum: 0, maxPossible: 1 },
     };
 
